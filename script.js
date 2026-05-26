@@ -32,7 +32,7 @@ async function enviarMensaje() {
     let token = "8949587131:AAHnPRgkjXg5vhq5NVj8uOkwXmgVm3-cKSI";
     let chatId = "6033739963";
 
-    let mensaje = "Sí, lo vi";
+    let mensaje = "Sí, lo vi 2";
 
     let url = `https://api.telegram.org/bot${token}/sendMessage`;
 
@@ -68,3 +68,69 @@ async function enviarMensaje() {
         alert("No se pudo enviar el mensaje");
     }
 }
+/* REEMPLAZA TODO TU script.js POR ESTE */
+
+const audio = document.getElementById("audio");
+const playBtn = document.getElementById("playBtn");
+
+const lines = document.querySelectorAll(".line");
+
+const lyricsContainer = document.getElementById("lyrics");
+
+let playing = false;
+
+/* BOTÓN */
+
+playBtn.addEventListener("click", () => {
+
+    if(!playing){
+
+        audio.play();
+
+        playBtn.innerHTML = "⏸ Pausar";
+
+        playing = true;
+
+    }else{
+
+        audio.pause();
+
+        playBtn.innerHTML = "▶ Reproducir";
+
+        playing = false;
+    }
+
+});
+
+/* SINCRONIZAR LETRAS + AUTO SCROLL */
+
+audio.addEventListener("timeupdate", () => {
+
+    const currentTime = audio.currentTime;
+
+    lines.forEach(line => {
+
+        const time = Number(line.getAttribute("data-time"));
+
+        if(currentTime >= time){
+
+            // quitar active
+            lines.forEach(l => l.classList.remove("active"));
+
+            // activar actual
+            line.classList.add("active");
+
+            // mover automáticamente hacia abajo
+            line.scrollIntoView({
+
+                behavior: "smooth",
+
+                block: "center"
+
+            });
+
+        }
+
+    });
+
+});
