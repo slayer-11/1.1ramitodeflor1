@@ -37,7 +37,8 @@ body {
   background-blend-mode: darken;
 
   /* Texto */
-  color: white;
+  color: rgb(199, 29, 151);
+
 }
 
 .container h2 {
@@ -115,7 +116,7 @@ body {
 
 
 
-.container{
+.con{
 
     width:90%;
     max-width:700px;
