@@ -15,12 +15,29 @@ body {
 }
 
 .container {
+ 
   width: 300px;
   text-align: center;
   padding: 20px;
-  background-color: #fff;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
-  border-radius: 15px;
+
+  /* Imagen de fondo */
+  background-image: url("tich5.jpeg");
+
+  /* Ajustes */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  /* Diseño */
+  border-radius: 25px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+
+  /* Transparencia elegante */
+  background-color: rgba(0,0,0,0.2);
+  background-blend-mode: darken;
+
+  /* Texto */
+  color: white;
 }
 
 .container h2 {
@@ -46,8 +63,8 @@ body {
         font-size: 18px;
         font-family: "Poppins", sans-serif;
         font-weight: 5;
-        color: #fff;
-        background: linear-gradient(45deg, #ff00b3, #ff5e00);
+        color: #70beef;
+        background: linear-gradient(45deg, #4EBCFF,  #5374A7);
         border: none;
         border-radius: 50px;
         cursor: pointer;
@@ -67,12 +84,12 @@ body {
   grid-column: 2/3;
 }
 body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin: 0;
     height: 100vh;
-    background-color: #f0f0f0;
+    background-image: url("tich3.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .botones {
