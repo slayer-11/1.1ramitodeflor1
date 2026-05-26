@@ -117,22 +117,22 @@ body {
 
 
 .con{
-
-    width:90%;
+ 
+    width:501%;
     max-width:700px;
 
     text-align:center;
 
     padding:30px;
-
+   
     border-radius:25px;
 
-    background:rgba(255,255,255,0.05);
+    background-image: url("tich5.jpeg");
 
     backdrop-filter:blur(10px);
 
-    box-shadow:0 0 30px rgba(21, 0, 255, 0.3);
-    text-shadow:0 0 20px currentColor;
+    box-shadow:0 0 10px rgba(21, 0, 255, 0.3);
+    text-shadow:0 0 10px currentColor;
 }
 
 h1{
