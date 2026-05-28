@@ -1,4 +1,4 @@
-const correctPassword = "2108";
+const correctPassword = "11092108";
 
 const display = document.getElementById("inputDisplay");
 
@@ -6,13 +6,13 @@ let input = "";
 
 function enterDigit(digit) {
 
-  if (input.length < 4) {
+  if (input.length < 8) {
     input += digit;
   }
 
-  display.textContent = input.padEnd(4, "•");
+  display.textContent = input.padEnd(8, "•");
 
-  if (input.length === 4) {
+  if (input.length === 8) {
 
     if (input === correctPassword) {
 
