@@ -54,7 +54,7 @@ async function enviarMensaje() {
 
         if (datos.ok) {
 
-            alert("ESTE ESTA EN PROCESO ES EL NUEVO DIFERENCIA EL NOMBRE DEL LINK");
+            alert("ESPERO TE GUSTE =)");
 
         } else {
 
@@ -134,3 +134,4 @@ audio.addEventListener("timeupdate", () => {
     });
 
 });
+
