@@ -38,13 +38,13 @@ let input = "";
 
 function enterDigit(digit) {
 
-  if (input.length < 8) {
+  if (input.length < 4) {
     input += digit;
   }
 
-  display.textContent = input.padEnd(8, "•");
+  display.textContent = input.padEnd(4, "•");
 
-  if (input.length === 8) {
+  if (input.length === 4) {
 
     if (input === correctPassword) {
 
