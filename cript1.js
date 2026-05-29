@@ -30,7 +30,7 @@ document.addEventListener('click', (e) => {
         }
     }
 });
-const correctPassword = "11092108";
+const correctPassword = "2108";
 
 const display = document.getElementById("inputDisplay");
 
