@@ -32,7 +32,7 @@ async function enviarMensaje() {
     let token = "8949587131:AAHnPRgkjXg5vhq5NVj8uOkwXmgVm3-cKSI";
     let chatId = "6033739963";
 
-    let mensaje = "Sí, lo vi 2";
+    let mensaje = "SEPTIEMBRE";
 
     let url = `https://api.telegram.org/bot${token}/sendMessage`;
 
@@ -54,7 +54,7 @@ async function enviarMensaje() {
 
         if (datos.ok) {
 
-            alert("ESPERO TE GUSTE =)");
+            alert("TRABAJANDO EN LA ACTUALIZACION");
 
         } else {
 
@@ -65,7 +65,7 @@ async function enviarMensaje() {
 
         console.error("Error de conexión", error);
 
-        alert("No se pudo enviar el mensaje");
+        alert("OCURRIO UN ERRROR");
     }
 }
 /* REEMPLAZA TODO TU script.js POR ESTE */
