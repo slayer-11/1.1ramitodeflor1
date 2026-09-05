@@ -3,692 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tarjeta de Cumpleaños Especial</title>
+    <title>Boda de Mariela & Jesús - 19 de Marzo, 2027</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome para iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Módulos de Firebase para base de datos en la nube en tiempo real -->
+    <script type="importmap">
+     
+    </script>
+
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-            padding: 20px;
-            overflow-x: hidden;
-            position: relative;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f7f5f0;
+            color: #2c3e35;
+        }
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        .hero-bg {
+            background-image: linear-gradient(rgba(44, 62, 53, 0.45), rgba(44, 62, 53, 0.65)), url('https://conhecimentocientifico.r7.com/wp-content/uploads/2020/03/ceu-estrelado_1048-11828.jpg.webp');
+            background-size: cover;
+            background-position: center;
+        }
+        .leaf-decor {
+            opacity: 0.15;
+            pointer-events: none;
         }
 
-        .stars {
+        /* Petalos cayendo */
+        .petals-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: -1;
-        }
-
-        .star {
-            position: absolute;
-            background-color: white;
-            border-radius: 50%;
-            animation: twinkle 5s infinite ease-in-out;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.2; }
-            50% { opacity: 1; }
-        }
-
-        .card {
-            position: relative;
-            width: 100%;
-            max-width: 550px;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 25px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-            padding: 40px;
-            text-align: center;
+            z-index: 30;
             overflow: hidden;
-            transform: scale(0.9);
-            animation: cardAppear 1.2s ease-out forwards;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
         }
-
-        @keyframes cardAppear {
-            to {
-                transform: scale(1);
-            }
-        }
-
-        .card::before {
-            content: '';
+        .petal {
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
-            transform: rotate(45deg);
-            animation: shine 6s infinite;
-        }
-
-        @keyframes shine {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-        }
-
-        .header {
-            margin-bottom: 25px;
-            position: relative;
-        }
-
-        .birthday-title {
-            font-size: 3rem;
-            background: linear-gradient(45deg, #FF512F, #DD2476, #FF512F);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 15px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-            animation: pulse 2s infinite, colorShift 5s infinite;
-            font-weight: 800;
-            letter-spacing: 1px;
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        @keyframes colorShift {
-            0% { filter: hue-rotate(0deg); }
-            50% { filter: hue-rotate(30deg); }
-            100% { filter: hue-rotate(0deg); }
-        }
-
-        .cake-container {
-            position: relative;
-            height: 150px;
-            margin: 25px 0;
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-        }
-
-        .cake {
-            position: relative;
-            width: 150px;
-            height: 80px;
-            background: linear-gradient(to bottom, #ff9a8b, #ff6b6b);
-            border-radius: 15px 15px 0 0;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            z-index: 2;
-        }
-
-        .cake:before {
-            content: '';
-            position: absolute;
-            top: -25px;
-            left: 15px;
-            width: 120px;
-            height: 25px;
-            background: linear-gradient(to bottom, #ffafbd, #ff6b6b);
-            border-radius: 15px 15px 0 0;
-        }
-
-        .cake:after {
-            content: '';
-            position: absolute;
-            top: -45px;
-            left: 30px;
-            width: 90px;
-            height: 25px;
-            background: linear-gradient(to bottom, #ffc3a0, #ffafbd);
-            border-radius: 15px 15px 0 0;
-        }
-
-        .candle {
-            position: absolute;
-            top: -70px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 8px;
-            height: 30px;
-            background: linear-gradient(to bottom, #fff, #ffde59);
-            border-radius: 4px;
-            z-index: 3;
-        }
-
-        .flame {
-            position: absolute;
-            top: -85px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 18px;
-            height: 25px;
-            background: linear-gradient(to bottom, #ffde59, #ff6b00);
-            border-radius: 50% 50% 20% 20%;
-            animation: flicker 0.8s infinite alternate;
-            box-shadow: 0 0 15px #ffde59;
-            z-index: 4;
-        }
-
-        @keyframes flicker {
-            0% {
-                transform: translateX(-50%) scale(1) rotate(-2deg);
-                opacity: 0.9;
-            }
-            50% {
-                transform: translateX(-50%) scale(1.1) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateX(-50%) scale(1.05) rotate(2deg);
-                opacity: 0.95;
-            }
-        }
-
-        .message {
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-            padding: 25px;
-            border-radius: 20px;
-            margin: 25px 0;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-        }
-
-        .message:before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
-            background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fad0c4, #ff9a9e);
-            z-index: -1;
-            filter: blur(20px);
+            top: -40px;
             opacity: 0.7;
+            animation: petalFall linear infinite;
+        }
+        @keyframes petalFall {
+            0% { transform: translateY(-10%) rotate(0deg) translateX(0); opacity: 0.8; }
+            25% { transform: translateY(25vh) rotate(90deg) translateX(15px); }
+            50% { transform: translateY(50vh) rotate(180deg) translateX(-10px); opacity: 0.6; }
+            75% { transform: translateY(75vh) rotate(270deg) translateX(20px); }
+            100% { transform: translateY(105vh) rotate(360deg) translateX(-5px); opacity: 0; }
         }
 
-        .message-text {
-            font-size: 1.2rem;
-            line-height: 1.7;
-            color: #5a3d2b;
-            margin-bottom: 18px;
-            text-align: left;
-            position: relative;
-            z-index: 2;
-        }
-
-        .special-message {
-            font-style: italic;
-            font-size: 1.3rem;
-            color: #d35400;
-            margin-top: 20px;
-            padding: 15px;
-            border-left: 5px solid #ff6b6b;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 0 15px 15px 0;
-            text-align: center;
-            font-weight: 600;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            position: relative;
-            z-index: 2;
-        }
-
-        .buttons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 25px;
-        }
-
-        .wish-button, .music-button {
-            background: linear-gradient(to right, #ff6b6b, #ff8e8e);
-            border: none;
-            padding: 14px 28px;
-            color: white;
-            font-size: 1.1rem;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        .music-button {
-            background: linear-gradient(to right, #4776E6, #8E54E9);
-            box-shadow: 0 8px 20px rgba(71, 118, 230, 0.4);
-        }
-
-        .wish-button:hover, .music-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(255, 107, 107, 0.6);
-        }
-
-        .music-button:hover {
-            box-shadow: 0 12px 25px rgba(71, 118, 230, 0.6);
-        }
-
-        .footer {
-            margin-top: 25px;
-            font-size: 1rem;
-            color: #666;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .balloons {
+        /* Corazones flotantes en hero */
+        .hearts-container {
             position: absolute;
+            bottom: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            top: 0;
-            left: 0;
             pointer-events: none;
-            z-index: -1;
+            overflow: hidden;
         }
-
-        .balloon {
-            position: absolute;
-            width: 50px;
-            height: 60px;
-            border-radius: 50%;
-            animation: float 10s ease-in-out infinite;
-            box-shadow: inset -5px -5px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .balloon:before {
-            content: '';
-            position: absolute;
-            bottom: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 2px;
-            height: 50px;
-            background: rgba(0, 0, 0, 0.2);
-        }
-
-        .balloon:after {
-            content: '';
+        .floating-heart {
             position: absolute;
             bottom: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 8px;
-            height: 10px;
-            background: inherit;
-            border-radius: 50%;
-            opacity: 0.6;
+            color: rgba(255, 255, 255, 0.15);
+            animation: floatUp linear infinite;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(0.5) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            100% { transform: translateY(-100vh) scale(1.2) rotate(25deg); opacity: 0; }
         }
 
-        .balloon:nth-child(1) {
-            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
-            left: 5%;
-            animation-delay: 0s;
-        }
-
-        .balloon:nth-child(2) {
-            background: linear-gradient(135deg, #48cae4, #90e0ef);
-            left: 25%;
-            animation-delay: 1.5s;
-        }
-
-        .balloon:nth-child(3) {
-            background: linear-gradient(135deg, #ffd166, #ffed99);
-            left: 50%;
-            animation-delay: 3s;
-        }
-
-        .balloon:nth-child(4) {
-            background: linear-gradient(135deg, #06d6a0, #8ef9c5);
-            left: 75%;
-            animation-delay: 4.5s;
-        }
-
-        .balloon:nth-child(5) {
-            background: linear-gradient(135deg, #9d4edd, #c77dff);
-            left: 90%;
-            animation-delay: 6s;
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0) rotate(0deg);
-            }
-            33% {
-                transform: translateY(-30px) rotate(3deg);
-            }
-            66% {
-                transform: translateY(-15px) rotate(-3deg);
-            }
-        }
-
-        .hearts {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .heart {
-            position: absolute;
-            font-size: 24px;
-            color: #ff6b6b;
-            animation: heartFloat 8s linear infinite;
+        /* Animaciones de entrada para secciones */
+        .fade-in-section {
             opacity: 0;
-            text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in-section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        @keyframes heartFloat {
-            0% {
-                transform: translateY(0) rotate(0deg) scale(0.5);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 0.8;
-            }
-            100% {
-                transform: translateY(-100px) rotate(360deg) scale(1.2);
-                opacity: 0;
-            }
+        /* Brillo dorado en titulos */
+        .gold-shimmer {
+            background: linear-gradient(90deg, #2c3e35, #797bec, #2c3e35);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 4s ease-in-out infinite;
+        }
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% center; }
+            50% { background-position: 200% center; }
         }
 
-        .gift-box {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
+        /* Anillos girando */
+        .rings-icon {
+            display: inline-block;
+            animation: ringsPulse 3s ease-in-out infinite;
+        }
+        @keyframes ringsPulse {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(5deg); }
+        }
+
+        /* Separador decorativo */
+        .wedding-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 20px 0;
+        }
+        .wedding-divider::before,
+        .wedding-divider::after {
+            content: '';
+            height: 1px;
             width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
-            border-radius: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
-            z-index: 5;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .gift-box:hover {
-            transform: scale(1.1) rotate(10deg);
-        }
-
-        .share-container {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            display: flex;
-            gap: 10px;
-        }
-
-        .share-btn {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #4776E6, #8E54E9);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 18px;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .share-btn:hover {
-            transform: translateY(-5px) scale(1.1);
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 100;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            text-align: center;
-            max-width: 500px;
-            width: 90%;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-            animation: modalAppear 0.5s ease-out;
-        }
-
-        @keyframes modalAppear {
-            from { transform: scale(0.8); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .modal h2 {
-            color: #ff6b6b;
-            margin-bottom: 15px;
-        }
-
-        .modal p {
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-
-        .close-modal {
-            background: #ff6b6b;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 600;
+            background: linear-gradient(90deg, transparent, #b8860b, transparent);
         }
     </style>
 </head>
-<body>
-    <div class="stars" id="stars"></div>
-    
-    <div class="card">
-        <div class="balloons">
-            <div class="balloon"></div>
-            <div class="balloon"></div>
-            <div class="balloon"></div>
-            <div class="balloon"></div>
-            <div class="balloon"></div>
-        </div>
-        <div class="hearts" id="heartsContainer"></div>
-        
-        <div class="header">
-            <h1 class="birthday-title">¡Feliz Cumpleaños YESICA ANAHI MAMANI GARNICA!</h1>
-            <div class="cake-container">
-                <div class="cake">
-                    <div class="candle">
-                        <div class="flame"></div>
-                    </div>
-                </div>
+<body class="antialiased selection:bg-emerald-800 selection:text-white">
+
+    <!-- Petalos cayendo -->
+    <div class="petals-container" id="petalsContainer"></div>
+
+    <!-- Música de fondo - Piano romántico -->
+    <div class="fixed bottom-6 right-6 z-40">
+        <button id="musicToggle" class="bg-emerald-800 hover:bg-emerald-900 text-white p-4 rounded-full shadow-lg transition-transform transform hover:scale-110 flex items-center justify-center">
+            <i id="musicIcon" class="fas fa-music"></i>
+        </button>
+        <audio id="bgMusic" loop preload="auto">
+            <source src="assets/those-eyes-new-west.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <!-- SECCIÓN DE BIENVENIDA (HERO) -->
+    <section class="hero-bg h-screen w-full flex flex-col justify-between items-center text-center px-4 py-12 text-white relative">
+        <!-- Corazones flotantes de fondo -->
+        <div class="hearts-container" id="heartsContainer"></div>
+
+        <div class="mt-12">
+            <p class="uppercase tracking-widest text-sm md:text-base font-semibold text-emerald-100">¡HISTORY!</p>
+            <div class="wedding-divider">
+                
             </div>
         </div>
-        
-        <div class="message">
-            <p class="message-text">En este día tan especial, quiero desearte todo lo mejor. Que este nuevo año de vida esté lleno de alegrías, éxitos y momentos inolvidables.</p>
-            <p class="message-text">Eres una persona increíble y mereces toda la felicidad del mundo. ¡Disfruta tu día al máximo!</p>
-            <p class="special-message">"Que cada vela que apagues hoy ilumine un nuevo sueño por cumplir. ¡Feliz cumpleaños!"</p>
-        </div>
-        
-        <div class="buttons">
-            <button class="wish-button" id="wishButton">
-                <i class="fas fa-birthday-cake"></i> ¡Haz tu deseo!
-            </button>
+
+        <div class="my-auto px-2">
+            <h1 class="font-serif text-5xl md:text-7xl font-light mb-6 tracking-wide gold-shimmer">
+                PROXIMAMENTE
+            </h1>
            
-        </div>
-        
-        <div class="footer">
-            <i class="fas fa-heart" style="color: #ff6b6b;"></i>
-            <p>Con cariño, para alguien especial</p>
-            <i class="fas fa-heart" style="color: #ff6b6b;"></i>
-        </div>
-        
-        <div class="gift-box" id="giftBox">
-            <i class="fas fa-gift"></i>
-        </div>
-        
-       
-            </div>
-        </div>
-    </div>
     
-    <div class="modal" id="shareModal">
-        <div class="modal-content">
-            <h2>¡Este Regalo se Cumplira!</h2>
-            <p>eres una gran persona nunca lo olvides
-            </p>
-            <button class="close-modal" id="closeModal">Cerrar</button>
         </div>
-    </div>
 
-    <audio id="birthdayMusic" autoplay>
-        <source src="hola.mp3" type="audio/mpeg">
-    </audio>
-
-    <script>
-        // Crear estrellas centelleantes
-        function createStars() {
-            const container = document.getElementById('stars');
-            for (let i = 0; i < 100; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.width = Math.random() * 3 + 'px';
-                star.style.height = star.style.width;
-                star.style.left = Math.random() * 100 + 'vw';
-                star.style.top = Math.random() * 100 + 'vh';
-                star.style.animationDelay = Math.random() * 5 + 's';
-                container.appendChild(star);
-            }
-        }
-
-        // Crear corazones flotantes
-        function createHearts() {
-            const container = document.getElementById('heartsContainer');
-            
-            for (let i = 0; i < 20; i++) {
-                const heart = document.createElement('div');
-                heart.className = 'heart';
-                heart.innerHTML = '❤';
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.animationDelay = Math.random() * 8 + 's';
-                container.appendChild(heart);
-            }
-        }
-
-        // Efecto al hacer clic en el botón de deseo
-        document.getElementById('wishButton').addEventListener('click', function() {
-            // Agregar más corazones
-            createHearts();
-            
-            // Cambiar texto del botón
-            this.innerHTML = '<i class="fas fa-star"></i> ¡Tu deseo se hará realidad!';
-            this.disabled = true;
-            
-            // Efecto visual en el pastel
-            const flame = document.querySelector('.flame');
-            flame.style.animation = 'none';
-            setTimeout(() => {
-                flame.style.animation = 'flicker 0.8s infinite alternate';
-            }, 100);
-            
-            // Mostrar mensaje especial
-            setTimeout(() => {
-                alert('✨ ¡Tu deseo ha sido enviado al universo ! ✨');
-            }, 1000);
-        });
-
-        // Controlar música de cumpleaños
-        const musicButton = document.getElementById('musicButton');
-        const birthdayMusic = document.getElementById('birthdayMusic');
-        let musicPlaying = false;
-        
-        musicButton.addEventListener('click', function() {
-            if (musicPlaying) {
-                birthdayMusic.pause();
-                this.innerHTML = '<i class="fas fa-music"></i> Música Festiva';
-                musicPlaying = false;
-            } else {
-                birthdayMusic.play();
-                this.innerHTML = '<i class="fas fa-pause"></i> Pausar Música';
-                musicPlaying = true;
-            }
-        });
-
-        // Mostrar modal de compartir
-        document.getElementById('giftBox').addEventListener('click', function() {
-            document.getElementById('shareModal').style.display = 'flex';
-        });
-
-        // Cerrar modal
-        document.getElementById('closeModal').addEventListener('click', function() {
-            document.getElementById('shareModal').style.display = 'none';
-        });
-
-        
-        // Inicializar efectos
-        createStars();
-        createHearts();
-        
-        // Efecto de entrada de texto
-        const messageTexts = document.querySelectorAll('.message-text, .special-message');
-        messageTexts.forEach((text, index) => {
-            text.style.opacity = '0';
-            text.style.transform = 'translateY(20px)';
-            setTimeout(() => {
-                text.style.transition = 'opacity 1s ease, transform 1s ease';
-                text.style.opacity = '1';
-                text.style.transform = 'translateY(0)';
-            }, 500 + (index * 300));
-        });
-    </script>
+      
+    
 </body>
 </html>
