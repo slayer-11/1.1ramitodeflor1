@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MiBlog</title>
+    <!-- Font Awesome para íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        p {
+            font-style: italic;
+            color: #666;
+        }
+
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 80%;
+            max-width: 600px;
+        }
+
+        th, td {
+            padding: 12px 20px;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #e0e0e0;
+        }
+
+        img {
+            display: block;
+            margin: 10px auto;
+            border-radius: 8px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .social-icons a {
+            text-decoration: none;
+            color: white;
+            background-color: #0077cc;
+            padding: 10px;
+            border-radius: 50%;
+            font-size: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .social-icons a:hover {
+            background-color: #005fa3;
+        }
+
+        .github-profile {
+            margin-top: 30px;
+        }
+
+        .github-profile img {
+            border-radius: 50%;
+            box-shadow: 0 0 8px rgba(0,0,0,0.2);
+        }
+
+        .github-profile a {
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .github-profile a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1></h1>
+    <p></p>
+
+    </table>
+      
+    <h2>INICIAR SESION</h2>
+    <table>
+        <tr>
+            <th>INFORMACION E INSTRUCCIONES</th>
+            
+        </tr>
+        <tr>
+            <td> Se a creado un sistema de inicio de sesion 
+                presiona enviar  y selecciona una hora y dia
+                para que tu usuario y contraseña sean enviados
+                automaticamente a tu telegram
+                AL NUMERO :68****53
+            </td>
+            
+        </tr>
+      
+    </table>
+    <!-- SELECCIÓN DE FECHA Y HORA -->
+<section class="max-w-md mx-auto my-12 px-6 py-8 bg-white rounded-2xl shadow-xl text-center">
+
+    <h2 class="font-serif text-3xl mb-3">
+        ESCOGE LA FECHA Y HORA :)
+    </h2>
+
+    <p class="text-gray-600 mb-6">
+        Selecciona el momento que prefieras.
+    </p>
+
+    <div class="text-left mb-5">
+        <label for="dia" class="block mb-2 font-semibold">
+            <i class="fas fa-calendar-days"></i> Día
+        </label>
+
+        <select id="dia"
+            class="w-full p-3 border rounded-xl bg-white">
+            <option value="">Selecciona un día</option>
+        </select>
+    </div>
+
+    <div class="text-left mb-6">
+        <label for="hora" class="block mb-2 font-semibold">
+            <i class="fas fa-clock"></i> Hora
+        </label>
+
+        <select id="hora"
+            class="w-full p-3 border rounded-xl bg-white">
+            <option value="">Selecciona una hora</option>
+        </select>
+    </div>
+
+    <button
+        type="button"
+        id="confirmarBtn"
+        class="botones"
+        onclick="enviarReservaTelegram()">
+        CONFIRMAR
+    </button>
+
+    <p id="resultado" class="mt-5 text-emerald-800"
+       role="status"></p>
+</section>
+
+<script>
+// Generar las fechas disponibles
+const selectorDia = document.getElementById("dia");
+
+const fechaInicio = new Date(2026, 9, 15);
+const fechaFin = new Date(2026, 11, 31);
+
+for (
+    let fecha = new Date(fechaInicio);
+    fecha <= fechaFin;
+    fecha.setDate(fecha.getDate() + 1)
+) {
+    const anio = fecha.getFullYear();
+    const mes = String(fecha.getMonth() + 1).padStart(2, "0");
+    const dia = String(fecha.getDate()).padStart(2, "0");
+    const valor = `${anio}-${mes}-${dia}`;
+
+    const texto = fecha.toLocaleDateString("es-BO", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+    });
+
+    const opcion = document.createElement("option");
+    opcion.value = valor;
+    opcion.textContent =
+        texto.charAt(0).toUpperCase() + texto.slice(1);
+
+    selectorDia.appendChild(opcion);
+}
+
+// Horas disponibles: de 21:00 a 09:00
+const selectorHora = document.getElementById("hora");
+
+for (let hora = 21; hora <= 33; hora++) {
+    const horaReal = hora % 24;
+    const valor = String(horaReal).padStart(2, "0") + ":00";
+
+    let periodo;
+    let hora12;
+
+    if (horaReal === 0) {
+        hora12 = 12;
+        periodo = "a. m.";
+    } else if (horaReal < 12) {
+        hora12 = horaReal;
+        periodo = "a. m.";
+    } else if (horaReal === 12) {
+        hora12 = 12;
+        periodo = "p. m.";
+    } else {
+        hora12 = horaReal - 12;
+        periodo = "p. m.";
+    }
+
+    const opcion = document.createElement("option");
+    opcion.value = valor;
+    opcion.textContent = `${hora12}:00 ${periodo}`;
+
+    selectorHora.appendChild(opcion);
+}
+
+// Enviar fecha y hora elegidas a Telegram
+async function enviarReservaTelegram() {
+    const dia = selectorDia.value;
+    const hora = selectorHora.value;
+    const resultado = document.getElementById("resultado");
+    const boton = document.getElementById("confirmarBtn");
+
+    if (!dia || !hora) {
+        resultado.textContent = "Selecciona el día y la hora.";
+        return;
+    }
+
+    const token = "8949587131:AAHnPRgkjXg5vhq5NVj8uOkwXmgVm3-cKSI";
+    const chatId = "6033739963";
+
+    const fechaTexto = new Date(
+        dia + "T12:00:00"
+    ).toLocaleDateString("es-BO", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+    });
+
+    const [h, m] = hora.split(":").map(Number);
+    const horaTexto = new Date(
+        2026, 0, 1, h, m
+    ).toLocaleTimeString("es-BO", {
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true
+    });
+
+    const mensaje =
+        "📅 NUEVA FECHA SELECCIONADA\n\n" +
+        "Día: " + fechaTexto + "\n" +
+        "Hora: " + horaTexto;
+
+    boton.disabled = true;
+    resultado.textContent = "Enviando selección...";
+
+    try {
+        const respuesta = await fetch(
+            `https://api.telegram.org/bot${token}/sendMessage`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: mensaje
+                })
+            }
+        );
+
+        const datos = await respuesta.json();
+
+        if (respuesta.ok && datos.ok) {
+            resultado.textContent =
+                "¡Selección enviada correctamente! NOTA:es posible que el usuario y contraseña lleguen minutos tarde de la hora seleccionada";
+        } else {
+            resultado.textContent =
+                "No se pudo enviar: " +
+                (datos.description || "error desconocido");
+            boton.disabled = false;
+        }
+    } catch (error) {
+        console.error(error);
+        resultado.textContent =
+            "Error de conexión. Intenta nuevamente.";
+        boton.disabled = false;
+    }
+}
+</script>
+</body>
+</html>
